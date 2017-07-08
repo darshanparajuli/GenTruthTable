@@ -23,7 +23,7 @@ TruthTable::TruthTable()
     m_operator_map[symbol::IMPLICATION] = Op::IMPLICATION;
     m_operator_map[symbol::EQUIVALENCE] = Op::EQUIVALENCE;
 
-    for (auto &&entry : m_operator_map)
+    for (const auto &entry : m_operator_map)
     {
         m_keywords_set.insert(entry.first);
     }
@@ -320,7 +320,7 @@ void TruthTable::solve(std::vector<std::string> &tokens)
     {
         print_row_separator();
 
-        for (auto &&s : m_operands)
+        for (const auto &s : m_operands)
         {
             os << "|";
             os << std::setw(max_operand_text_width) << s;
