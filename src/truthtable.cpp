@@ -462,14 +462,18 @@ void TruthTable::print_container(const T &v)
     auto itr = std::begin(v);
     if (itr != std::end(v))
     {
-        while (itr != std::end(v))
+        while (true)
         {
             std::cout << *itr;
-            if (itr + 1 != std::end(v))
+            ++itr;
+            if (itr != std::end(v))
             {
                 std::cout << ", ";
             }
-            ++itr;
+            else
+            {
+                break;
+            }
         }
         std::cout << std::endl;
     }
