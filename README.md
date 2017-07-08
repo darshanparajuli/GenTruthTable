@@ -1,7 +1,6 @@
 # GenTruthTable
 Truth table generator written in C++.
 
-# Instructions
 ## Install
 1. `git clone https://github.com/darshanparajuli/GenTruthTable`
 2. `cd GenTruthTable`
@@ -11,7 +10,7 @@ Truth table generator written in C++.
 ## Uninstall
 `make uninstall`
 
-# Usage
+## Usage
 ~~~~
 $ GenTruthTable "a + b"
 +--+--+------+
@@ -60,7 +59,7 @@ Logical expression >> quit
 Bye!
 ~~~~
 
-# License
+## License
 MIT License
 
 Copyright (c) 2017 Darshan Parajuli
