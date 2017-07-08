@@ -276,7 +276,7 @@ bool TruthTable::calculate(bool left, Op op, bool right)
 
 void TruthTable::solve(std::vector<std::string> &tokens)
 {
-    std::ostream &stream = std::cout;
+    std::ostream &os = std::cout;
 
     unsigned int max_operand_text_width = 0;
     std::string input;
@@ -306,14 +306,14 @@ void TruthTable::solve(std::vector<std::string> &tokens)
         {
             if ((i < (max_chars - input_text_width) && i % (max_operand_text_width + 1) == 0) || i == max_chars - 1)
             {
-                stream << "+";
+                os << "+";
             }
             else
             {
-                stream << "-";
+                os << "-";
             }
         }
-        stream << std::endl;
+        os << std::endl;
     };
 
     if (m_pretty_print)
@@ -322,10 +322,10 @@ void TruthTable::solve(std::vector<std::string> &tokens)
 
         for (auto &&s : m_operands)
         {
-            stream << "|";
-            stream << std::setw(max_operand_text_width) << s;
+            os << "|";
+            os << std::setw(max_operand_text_width) << s;
         }
-        stream << "|" << std::setw(input_text_width) << input << "|" << std::endl;
+        os << "|" << std::setw(input_text_width) << input << "|" << std::endl;
 
         print_row_separator();
     }
@@ -389,28 +389,28 @@ void TruthTable::solve(std::vector<std::string> &tokens)
 
         if (m_pretty_print)
         {
-            stream << "|";
+            os << "|";
 
             for (unsigned long j = 0; j < operand_count; ++j)
             {
-                stream << std::setw(max_operand_text_width) << std::internal << map[m_operands[j]];
-                stream << "|";
+                os << std::setw(max_operand_text_width) << std::internal << map[m_operands[j]];
+                os << "|";
             }
 
-            stream << std::setw(input_text_width) << result;
+            os << std::setw(input_text_width) << result;
 
-            stream << "|";
+            os << "|";
         }
         else
         {
             for (unsigned long j = 0; j < operand_count; ++j)
             {
-                stream << map[m_operands[j]];
+                os << map[m_operands[j]];
             }
 
-            stream << result;
+            os << result;
         }
-        stream << std::endl;
+        os << std::endl;
     }
 
     if (m_pretty_print)
