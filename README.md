@@ -12,7 +12,7 @@ Truth table generator written in C++.
 
 ## Usage
 ~~~~
-$ GenTruthTable "a + b"
+$ GenTruthTable -p "a + b"
 +--+--+------+
 | a| b| (a+b)|
 +--+--+------+
