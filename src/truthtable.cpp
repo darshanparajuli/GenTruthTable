@@ -79,7 +79,7 @@ bool TruthTable::generate(const std::string &input)
         return false;
     }
 
-    solve(tokens);
+    generate(tokens);
 
     return true;
 }
@@ -274,7 +274,7 @@ bool TruthTable::calculate(bool left, Op op, bool right)
     }
 }
 
-void TruthTable::solve(std::vector<std::string> &tokens)
+void TruthTable::generate(std::vector<std::string> &tokens)
 {
     std::ostream &os = std::cout;
 

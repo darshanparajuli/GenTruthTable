@@ -67,7 +67,7 @@ private:
 
     Node *to_expression_tree(std::vector<std::string> postfix);
 
-    void solve(std::vector<std::string> &tokens);
+    void generate(std::vector<std::string> &tokens);
 
     void expression_tree_to_string(Node *node, std::string &result, int depth = 0);
 
