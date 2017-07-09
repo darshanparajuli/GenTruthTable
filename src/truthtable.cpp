@@ -341,13 +341,13 @@ void TruthTable::solve(std::vector<std::string> &tokens)
         }
     }
 
-    bool *intervals = new bool[interval_count];
+    bool intervals[interval_count];
     for (unsigned long i = 0; i < interval_count; ++i)
     {
         intervals[i] = true;
     }
 
-    unsigned long *counters = new unsigned long[interval_count];
+    unsigned long counters[interval_count];
     counters[0] = 1;
     for (unsigned long i = 1; i < interval_count; ++i)
     {
@@ -417,9 +417,6 @@ void TruthTable::solve(std::vector<std::string> &tokens)
     {
         print_row_separator();
     }
-
-    delete[] counters;
-    delete[] intervals;
 }
 
 bool TruthTable::solve_helper(std::map<std::string, bool> &value_map, TruthTable::Node *node)
