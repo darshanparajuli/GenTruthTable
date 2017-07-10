@@ -2,18 +2,20 @@
 Truth table generator written in C++.
 
 ## Install
+### Dependency: OptionParser
 1. `git clone https://github.com/darshanparajuli/OptionParser.git`
 2. `cd OptionParser`
 3. `make release`
 4. `make install`
-5. `git clone https://github.com/darshanparajuli/GenTruthTable`
-6. `cd GenTruthTable`
-7. `make release`
-8. `make install`
+### GenTruthTable
+1. `git clone https://github.com/darshanparajuli/GenTruthTable`
+2. `cd GenTruthTable`
+3. `make release`
+4. `make install`
 
 ## Uninstall
-1. `cd OptionParser && make uninstall`
-2. `cd GenTruthTable && make uninstall`
+* `cd OptionParser && make uninstall`
+* `cd GenTruthTable && make uninstall`
 
 ## Usage
 ~~~~
