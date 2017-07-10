@@ -451,9 +451,9 @@ void TruthTable::expression_tree_to_string(TruthTable::Node *node, std::string &
         {
             result += symbol::LEFT_PAREN;
         }
-        expression_tree_to_string(node->right, result, depth + 1);
-        result += node->value;
         expression_tree_to_string(node->left, result, depth + 1);
+        result += node->value;
+        expression_tree_to_string(node->right, result, depth + 1);
         if (can_print_paren)
         {
             result += symbol::RIGHT_PAREN;
