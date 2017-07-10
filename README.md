@@ -14,8 +14,10 @@ Truth table generator written in C++.
 4. `make install`
 
 ## Uninstall
-* `cd OptionParser && make uninstall`
-* `cd GenTruthTable && make uninstall`
+### GenTruthTable
+`cd GenTruthTable && make uninstall`
+### OptionParser
+`cd OptionParser && make uninstall`
 
 ## Usage
 ~~~~
