@@ -170,6 +170,17 @@ std::vector<std::string> TruthTable::to_post_fix(const std::vector<std::string> 
 TruthTable::Node *TruthTable::to_expression_tree(std::vector<std::string> postfix)
 {
     std::stack<Node *> expression_stack;
+
+    auto cleanup_stack = [&expression_stack, this]()
+    {
+        while (!expression_stack.empty())
+        {
+            Node *node = expression_stack.top();
+            delete_expression_tree(node);
+            expression_stack.pop();
+        }
+    };
+
     for (const auto &symbol : postfix)
     {
         if (is_operand(symbol))
@@ -180,6 +191,7 @@ TruthTable::Node *TruthTable::to_expression_tree(std::vector<std::string> postfi
         {
             if (expression_stack.empty())
             {
+                cleanup_stack();
                 return nullptr;
             }
 
@@ -192,6 +204,8 @@ TruthTable::Node *TruthTable::to_expression_tree(std::vector<std::string> postfi
             {
                 if (expression_stack.empty())
                 {
+                    delete_expression_tree(node);
+                    cleanup_stack();
                     return nullptr;
                 }
 
@@ -205,14 +219,7 @@ TruthTable::Node *TruthTable::to_expression_tree(std::vector<std::string> postfi
     }
     if (expression_stack.size() > 1)
     {
-        Node *node = expression_stack.top();
-        expression_stack.pop();
-        while (!expression_stack.empty())
-        {
-            delete_expression_tree(node);
-            node = expression_stack.top();
-            expression_stack.pop();
-        }
+        cleanup_stack();
         return nullptr;
     }
     return expression_stack.top();
