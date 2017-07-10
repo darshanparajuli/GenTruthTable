@@ -73,6 +73,11 @@ bool TruthTable::generate(const std::string &input)
 
     //    print_container(postfix);
 
+    if (m_expression_tree)
+    {
+        delete_expression_tree(m_expression_tree);
+    }
+
     m_expression_tree = to_expression_tree(postfix);
     if (!m_expression_tree)
     {
