@@ -13,7 +13,6 @@ TruthTable::TruthTable()
       m_keywords_set(std::set<std::string>()),
       m_operator_precedence_map(std::map<std::string, int>()),
       m_operands(std::vector<std::string>()),
-      m_expression_tree(nullptr),
       m_pretty_print(false)
 {
     m_operator_map[symbol::AND] = Op::AND;
@@ -39,7 +38,6 @@ TruthTable::TruthTable()
 
 TruthTable::~TruthTable()
 {
-    delete_expression_tree(m_expression_tree);
 }
 
 bool TruthTable::generate(const std::string &input)
@@ -73,18 +71,15 @@ bool TruthTable::generate(const std::string &input)
 
     //    print_container(postfix);
 
-    if (m_expression_tree)
-    {
-        delete_expression_tree(m_expression_tree);
-    }
-
-    m_expression_tree = to_expression_tree(postfix);
-    if (!m_expression_tree)
+    Node *expression_tree = to_expression_tree(postfix);
+    if (!expression_tree)
     {
         return false;
     }
 
-    generate(tokens);
+    generate(tokens, expression_tree);
+
+    delete_expression_tree(expression_tree);
 
     return true;
 }
@@ -286,7 +281,7 @@ bool TruthTable::calculate(bool left, Op op, bool right)
     }
 }
 
-void TruthTable::generate(std::vector<std::string> &tokens)
+void TruthTable::generate(std::vector<std::string> &tokens, Node *expression_tree)
 {
     std::ostream &os = std::cout;
 
@@ -295,7 +290,7 @@ void TruthTable::generate(std::vector<std::string> &tokens)
 
     if (m_pretty_print)
     {
-        expression_tree_to_string(m_expression_tree, input);
+        expression_tree_to_string(expression_tree, input);
         for (const auto &operand : m_operands)
         {
             if (operand.size() > max_operand_text_width)
@@ -397,7 +392,7 @@ void TruthTable::generate(std::vector<std::string> &tokens)
             }
         }
 
-        bool result = solve_helper(map, m_expression_tree);
+        bool result = solve_helper(map, expression_tree);
 
         if (m_pretty_print)
         {

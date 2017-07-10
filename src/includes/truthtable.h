@@ -34,7 +34,6 @@ private:
     std::set<std::string> m_keywords_set;
     std::map<std::string, int> m_operator_precedence_map;
     std::vector<std::string> m_operands;
-    Node *m_expression_tree;
     bool m_pretty_print;
 
 public:
@@ -67,7 +66,7 @@ private:
 
     Node *to_expression_tree(std::vector<std::string> postfix);
 
-    void generate(std::vector<std::string> &tokens);
+    void generate(std::vector<std::string> &tokens, Node *expression_tree);
 
     void expression_tree_to_string(Node *node, std::string &result, int depth = 0);
 
