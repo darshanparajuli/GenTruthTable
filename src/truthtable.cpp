@@ -196,9 +196,9 @@ TruthTable::Node *TruthTable::to_expression_tree(std::vector<std::string> postfi
             }
 
             Node *node = new Node(symbol);
-            Node *left = expression_stack.top();
+            Node *right = expression_stack.top();
             expression_stack.pop();
-            node->left = left;
+            node->right = right;
 
             if (symbol != symbol::NOT)  // special case
             {
@@ -209,9 +209,9 @@ TruthTable::Node *TruthTable::to_expression_tree(std::vector<std::string> postfi
                     return nullptr;
                 }
 
-                Node *right = expression_stack.top();
+                Node *left = expression_stack.top();
                 expression_stack.pop();
-                node->right = right;
+                node->left = left;
             }
 
             expression_stack.push(node);
@@ -430,13 +430,16 @@ bool TruthTable::solve_helper(std::map<std::string, bool> &value_map, TruthTable
     {
         return value_map[node->value];
     }
-    bool result_left = solve_helper(value_map, node->left);
-    bool result_right = false;
-    if (node->right)
+    bool result_right = solve_helper(value_map, node->right);
+    if (node->left)
     {
-        result_right = solve_helper(value_map, node->right);
+        bool result_left = solve_helper(value_map, node->left);
+        return calculate(result_left, m_operator_map[node->value], result_right);
     }
-    return calculate(result_left, m_operator_map[node->value], result_right);
+    else
+    {
+        return calculate(result_right, m_operator_map[node->value]);
+    }
 }
 
 void TruthTable::expression_tree_to_string(TruthTable::Node *node, std::string &result, int depth)
