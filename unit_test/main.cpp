@@ -64,28 +64,27 @@ struct TestInfo
     }
 };
 
-struct TruthTableTest : testing::Test, testing::WithParamInterface<TestInfo>
+struct ValidTruthTableTest : testing::Test, testing::WithParamInterface<TestInfo>
 {
     TruthTable truth_table;
 
-    TruthTableTest() : truth_table{TruthTable()}
+    ValidTruthTableTest() : truth_table{TruthTable()}
     {
     }
 
-    ~TruthTableTest()
+    ~ValidTruthTableTest()
     {
     }
 };
 
-TEST_P(TruthTableTest, test)
+TEST_P(ValidTruthTableTest, test)
 {
     std::stringstream ss;
-    truth_table.generate(GetParam().input, ss);
-
+    EXPECT_TRUE(truth_table.generate(GetParam().input, ss));
     EXPECT_STREQ(GetParam().get_expected().c_str(), ss.str().c_str());
 }
 
-INSTANTIATE_TEST_CASE_P(Default, TruthTableTest, testing::Values(
+INSTANTIATE_TEST_CASE_P(Default, ValidTruthTableTest, testing::Values(
     TestInfo{"a+b", "000:011:101:111"},
     TestInfo{"a*b", "000:010:100:111"},
     TestInfo{"~a", "01:10"},
