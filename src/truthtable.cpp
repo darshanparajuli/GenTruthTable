@@ -40,7 +40,7 @@ TruthTable::~TruthTable()
 {
 }
 
-bool TruthTable::generate(const std::string &input)
+bool TruthTable::generate(const std::string &input, std::ostream &os)
 {
     m_operands.clear();
 
@@ -77,7 +77,7 @@ bool TruthTable::generate(const std::string &input)
         return false;
     }
 
-    generate(tokens, expression_tree);
+    generate(tokens, expression_tree, os);
 
     delete_expression_tree(expression_tree);
 
@@ -281,10 +281,8 @@ bool TruthTable::calculate(bool left, Op op, bool right)
     }
 }
 
-void TruthTable::generate(std::vector<std::string> &tokens, Node *expression_tree)
+void TruthTable::generate(std::vector<std::string> &tokens, Node *expression_tree, std::ostream &os)
 {
-    std::ostream &os = std::cout;
-
     unsigned int max_operand_text_width = 0;
     std::string input;
 

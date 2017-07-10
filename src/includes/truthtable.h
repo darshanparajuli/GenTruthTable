@@ -41,7 +41,7 @@ public:
 
     ~TruthTable();
 
-    bool generate(const std::string &input);
+    bool generate(const std::string &input, std::ostream &os = std::cout);
 
     inline void set_pretty_print(bool enabled) { m_pretty_print = enabled; }
 
@@ -66,7 +66,7 @@ private:
 
     Node *to_expression_tree(std::vector<std::string> postfix);
 
-    void generate(std::vector<std::string> &tokens, Node *expression_tree);
+    void generate(std::vector<std::string> &tokens, Node *expression_tree, std::ostream &os);
 
     void expression_tree_to_string(Node *node, std::string &result, int depth = 0);
 
