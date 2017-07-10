@@ -64,18 +64,26 @@ struct TestInfo
     }
 };
 
-struct ValidTruthTableTest : testing::Test, testing::WithParamInterface<TestInfo>
+struct TruthTableTest : testing::Test
 {
     TruthTable truth_table;
 
-    ValidTruthTableTest() : truth_table{TruthTable()}
-    {
-    }
-
-    ~ValidTruthTableTest()
+    TruthTableTest() : truth_table{TruthTable()}
     {
     }
 };
+
+struct ValidTruthTableTest : TruthTableTest, testing::WithParamInterface<TestInfo>
+{
+};
+
+TEST_F(TruthTableTest, invalid_not_operator)
+{
+    EXPECT_FALSE(truth_table.generate("a~"));
+    EXPECT_FALSE(truth_table.generate("~a~"));
+    EXPECT_FALSE(truth_table.generate("a~b"));
+    EXPECT_FALSE(truth_table.generate("~a~b"));
+}
 
 TEST_P(ValidTruthTableTest, test)
 {
