@@ -31,7 +31,40 @@ struct Arg
     }
 };
 
-struct TruthTableTest : testing::Test
+struct TestInfo
+{
+    std::string input;
+    std::string expected;
+
+    TestInfo(const std::string &i, const std::string &e) : input{i}, expected{e}
+    {
+    }
+
+    std::string get_expected() const
+    {
+        std::stringstream ss;
+        for (int i = 0; i < expected.length(); ++i)
+        {
+            if (expected[i] == ':')
+            {
+                ss << '\n';
+            }
+            else
+            {
+                ss << expected[i];
+            }
+        }
+        ss << "\n";
+        return ss.str();
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const TestInfo &info)
+    {
+        return os << "Input: " << info.input << ", Expected: " << info.expected;
+    }
+};
+
+struct TruthTableTest : testing::Test, testing::WithParamInterface<TestInfo>
 {
     TruthTable truth_table;
 
@@ -44,35 +77,22 @@ struct TruthTableTest : testing::Test
     }
 };
 
-TEST_F(TruthTableTest, or_test)
+TEST_P(TruthTableTest, test)
 {
-    std::string exp = "a+b";
     std::stringstream ss;
-    truth_table.generate(exp, ss);
+    truth_table.generate(GetParam().input, ss);
 
-    std::string expected = "000\n101\n011\n111\n";
-    EXPECT_STREQ(expected.c_str(), ss.str().c_str());
+    EXPECT_STREQ(GetParam().get_expected().c_str(), ss.str().c_str());
 }
 
-TEST_F(TruthTableTest, and_test)
-{
-    std::string exp = "a*b";
-    std::stringstream ss;
-    truth_table.generate(exp, ss);
-
-    std::string expected = "000\n100\n010\n111\n";
-    EXPECT_STREQ(expected.c_str(), ss.str().c_str());
-}
-
-TEST_F(TruthTableTest, not_test)
-{
-    std::string exp = "~a";
-    std::stringstream ss;
-    truth_table.generate(exp, ss);
-
-    std::string expected = "01\n10\n";
-    EXPECT_STREQ(expected.c_str(), ss.str().c_str());
-}
+INSTANTIATE_TEST_CASE_P(Default, TruthTableTest, testing::Values(
+    TestInfo{"a+b", "000:101:011:111"},
+    TestInfo{"a*b", "000:100:010:111"},
+    TestInfo{"~a", "01:10"},
+    TestInfo{"a<+>b", "000:101:011:110"},
+    TestInfo{"a=>b", "001:100:011:111"},
+    TestInfo{"a<>b", "001:100:010:111"}
+));
 
 int main(int argc, char **argv)
 {
