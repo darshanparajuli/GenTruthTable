@@ -86,12 +86,12 @@ TEST_P(TruthTableTest, test)
 }
 
 INSTANTIATE_TEST_CASE_P(Default, TruthTableTest, testing::Values(
-    TestInfo{"a+b", "000:101:011:111"},
-    TestInfo{"a*b", "000:100:010:111"},
+    TestInfo{"a+b", "000:011:101:111"},
+    TestInfo{"a*b", "000:010:100:111"},
     TestInfo{"~a", "01:10"},
-    TestInfo{"a<+>b", "000:101:011:110"},
-    TestInfo{"a=>b", "001:100:011:111"},
-    TestInfo{"a<>b", "001:100:010:111"}
+    TestInfo{"a<+>b", "000:011:101:110"},
+    TestInfo{"a=>b", "001:011:100:111"},
+    TestInfo{"a<>b", "001:010:100:111"}
 ));
 
 int main(int argc, char **argv)

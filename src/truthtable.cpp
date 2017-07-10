@@ -372,7 +372,7 @@ void TruthTable::generate(std::vector<std::string> &tokens, Node *expression_tre
 
         map.clear();
 
-        int index = 0;
+        int index = interval_count - 1;
         for (const auto &operand : m_operands)
         {
             if (operand == symbol::FALSE)
@@ -386,7 +386,7 @@ void TruthTable::generate(std::vector<std::string> &tokens, Node *expression_tre
             else
             {
                 map[operand] = intervals[index];
-                ++index;
+                --index;
             }
         }
 
