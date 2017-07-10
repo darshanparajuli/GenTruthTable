@@ -9,6 +9,10 @@ debug:
 	@mkdir -p $(DEBUG_FOLDER)
 	@cd $(DEBUG_FOLDER) && cmake ../../ -DCMAKE_BUILD_TYPE=Debug && cmake --build .
 
+.PHONY: test
+test:
+	@./$(DEBUG_FOLDER)/bin/GenTruthTableTest
+
 .PHONY: release
 release:
 	@mkdir -p $(RELEASE_FOLDER)
