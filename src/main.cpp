@@ -71,14 +71,7 @@ void process_stdin(TruthTable &truth_table)
     std::string input;
     while (getline(std::cin, input))
     {
-        if (truth_table.generate(input))
-        {
-            // do nothing
-        }
-        else
-        {
-            std::cout << INVALID_EXPRESSION_ERROR_MSG << std::endl;
-        }
+        process_input(truth_table, input);
     }
 }
 
