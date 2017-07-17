@@ -2,8 +2,6 @@
 #include <iostream>
 #include "includes/truthtable.h"
 
-#define INVALID_EXPRESSION_ERROR_MSG "invalid expression!"
-
 void print_title()
 {
     std::cout << "***************************************************" << std::endl;
@@ -37,7 +35,7 @@ void process_input(TruthTable &truth_table, const std::string &arg)
     }
     else
     {
-        std::cout << "Error: " << INVALID_EXPRESSION_ERROR_MSG << std::endl;
+        std::cout << "Error: invalid expression!" << std::endl;
     }
 }
 
