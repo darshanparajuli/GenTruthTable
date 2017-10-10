@@ -19,7 +19,7 @@ release:
 	@cd $(RELEASE_FOLDER) && cmake ../../ -DCMAKE_BUILD_TYPE=Release && cmake --build .
 
 .PHONY: install
-install:
+install: release
 	@cd $(RELEASE_FOLDER) && make install
 
 .PHONY: uninstall
