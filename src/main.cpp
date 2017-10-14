@@ -95,10 +95,6 @@ int main(int argc, char **argv)
 
     TruthTable truth_table;
 
-    if (!parser.has_options() && parser.has_args())
-    {
-    }
-
     bool read_stdin = false;
 
     Option option;
